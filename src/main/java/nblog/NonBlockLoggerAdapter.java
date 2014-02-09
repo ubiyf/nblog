@@ -3,6 +3,9 @@ package nblog;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 public class NonBlockLoggerAdapter implements Logger {
 
     private final NonBlockLogger logger;
@@ -21,56 +24,59 @@ public class NonBlockLoggerAdapter implements Logger {
 
     @Override
     public void debug(String arg0, Object arg1) {
-        // TODO Auto-generated method stub
-
+        if (isDebugEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.DEBUG);
+        }
     }
 
     @Override
     public void debug(String arg0, Object... arg1) {
-        // TODO Auto-generated method stub
-
+        if (isDebugEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.DEBUG);
+        }
     }
 
     @Override
     public void debug(String arg0, Throwable arg1) {
-        // TODO Auto-generated method stub
-
+        if (isDebugEnabled()) {
+            String stackTrace = getFullStackTraceText(arg0, arg1);
+            logger.writeLog(stackTrace, NonBlockLoggerLevel.DEBUG);
+        }
     }
 
     @Override
     public void debug(Marker arg0, String arg1) {
-        // TODO Auto-generated method stub
-
+        debug(arg1);
     }
 
     @Override
     public void debug(String arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+        if (isDebugEnabled()) {
+            String text = String.format(arg0, arg1, arg2);
+            logger.writeLog(text, NonBlockLoggerLevel.DEBUG);
+        }
     }
 
     @Override
     public void debug(Marker arg0, String arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+        debug(arg1, arg2);
     }
 
     @Override
     public void debug(Marker arg0, String arg1, Object... arg2) {
-        // TODO Auto-generated method stub
-
+        debug(arg1, arg2);
     }
 
     @Override
     public void debug(Marker arg0, String arg1, Throwable arg2) {
-        // TODO Auto-generated method stub
-
+        debug(arg1, arg2);
     }
 
     @Override
     public void debug(Marker arg0, String arg1, Object arg2, Object arg3) {
-        // TODO Auto-generated method stub
-
+        debug(arg1, arg2, arg3);
     }
 
     @Override
@@ -82,56 +88,68 @@ public class NonBlockLoggerAdapter implements Logger {
 
     @Override
     public void error(String arg0, Object arg1) {
-        // TODO Auto-generated method stub
-
+        if (isErrorEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.ERROR);
+        }
     }
 
     @Override
     public void error(String arg0, Object... arg1) {
-        // TODO Auto-generated method stub
-
+        if (isErrorEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.ERROR);
+        }
     }
 
     @Override
     public void error(String arg0, Throwable arg1) {
-        // TODO Auto-generated method stub
+        if (isErrorEnabled()) {
+            String stackTrace = getFullStackTraceText(arg0, arg1);
+            logger.writeLog(stackTrace, NonBlockLoggerLevel.ERROR);
+        }
+    }
 
+    private String getFullStackTraceText(String arg0, Throwable arg1) {
+        StringWriter writer = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(writer);
+        printWriter.println(arg0);
+        arg1.printStackTrace(printWriter);
+        printWriter.flush();
+        return writer.toString();
     }
 
     @Override
     public void error(Marker arg0, String arg1) {
-        // TODO Auto-generated method stub
-
+        error(arg1);
     }
 
     @Override
     public void error(String arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+        if (isErrorEnabled()) {
+            String text = String.format(arg0, arg1, arg2);
+            logger.writeLog(text, NonBlockLoggerLevel.ERROR);
+        }
     }
 
     @Override
     public void error(Marker arg0, String arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+        error(arg1, arg2);
     }
 
     @Override
     public void error(Marker arg0, String arg1, Object... arg2) {
-        // TODO Auto-generated method stub
-
+        error(arg1, arg2);
     }
 
     @Override
     public void error(Marker arg0, String arg1, Throwable arg2) {
-        // TODO Auto-generated method stub
-
+        error(arg1, arg2);
     }
 
     @Override
     public void error(Marker arg0, String arg1, Object arg2, Object arg3) {
-        // TODO Auto-generated method stub
-
+        error(arg1, arg2, arg3);
     }
 
     @Override
@@ -148,121 +166,109 @@ public class NonBlockLoggerAdapter implements Logger {
 
     @Override
     public void info(String arg0, Object arg1) {
-        // TODO Auto-generated method stub
-
+        if (isInfoEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.INFO);
+        }
     }
 
     @Override
     public void info(String arg0, Object... arg1) {
-        // TODO Auto-generated method stub
-
+        if (isInfoEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.INFO);
+        }
     }
 
     @Override
     public void info(String arg0, Throwable arg1) {
-        // TODO Auto-generated method stub
-
+        if (isInfoEnabled()) {
+            String stackTrace = getFullStackTraceText(arg0, arg1);
+            logger.writeLog(stackTrace, NonBlockLoggerLevel.INFO);
+        }
     }
 
     @Override
     public void info(Marker arg0, String arg1) {
-        // TODO Auto-generated method stub
-
+        info(arg1);
     }
 
     @Override
     public void info(String arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+        if (isInfoEnabled()) {
+            String text = String.format(arg0, arg1, arg2);
+            logger.writeLog(text, NonBlockLoggerLevel.INFO);
+        }
     }
 
     @Override
     public void info(Marker arg0, String arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+        info(arg1, arg2);
     }
 
     @Override
     public void info(Marker arg0, String arg1, Object... arg2) {
-        // TODO Auto-generated method stub
-
+        info(arg1, arg2);
     }
 
     @Override
     public void info(Marker arg0, String arg1, Throwable arg2) {
-        // TODO Auto-generated method stub
-
+        info(arg1, arg2);
     }
 
     @Override
     public void info(Marker arg0, String arg1, Object arg2, Object arg3) {
-        // TODO Auto-generated method stub
-
+        info(arg1, arg2, arg3);
     }
 
     @Override
     public boolean isDebugEnabled() {
-        if (NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.DEBUG.getValue()) {
-            return true;
-        }
-        return false;
+        return NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.DEBUG.getValue();
     }
 
     @Override
     public boolean isDebugEnabled(Marker arg0) {
-        return false;
+        return isDebugEnabled();
     }
 
     @Override
     public boolean isErrorEnabled() {
-        if (NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.ERROR.getValue()) {
-            return true;
-        }
-        return false;
+        return NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.ERROR.getValue();
     }
 
     @Override
     public boolean isErrorEnabled(Marker arg0) {
-        return false;
+        return isErrorEnabled();
     }
 
     @Override
     public boolean isInfoEnabled() {
-        if (NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.INFO.getValue()) {
-            return true;
-        }
-        return false;
+        return NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.INFO.getValue();
     }
 
     @Override
     public boolean isInfoEnabled(Marker arg0) {
-        return false;
+        return isInfoEnabled();
     }
 
     @Override
     public boolean isTraceEnabled() {
-        if (NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.TRACE.getValue()) {
-            return true;
-        }
-        return false;
+        return NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.TRACE.getValue();
     }
 
     @Override
     public boolean isTraceEnabled(Marker arg0) {
-        return false;
+        return isTraceEnabled();
     }
 
     @Override
     public boolean isWarnEnabled() {
-        if (NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.WARN.getValue()) {
-            return true;
-        }
-        return false;
+        return NonBlockLoggerConfig.getLevel().getValue() >= NonBlockLoggerLevel.WARN.getValue();
     }
 
     @Override
     public boolean isWarnEnabled(Marker arg0) {
-        return false;
+        return isWarnEnabled();
     }
 
     @Override
@@ -274,47 +280,59 @@ public class NonBlockLoggerAdapter implements Logger {
 
     @Override
     public void trace(String arg0, Object arg1) {
-
+        if (isTraceEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.TRACE);
+        }
     }
 
     @Override
     public void trace(String arg0, Object... arg1) {
-
+        if (isInfoEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.TRACE);
+        }
     }
 
     @Override
     public void trace(String arg0, Throwable arg1) {
-
+        if (isTraceEnabled()) {
+            String stackTrace = getFullStackTraceText(arg0, arg1);
+            logger.writeLog(stackTrace, NonBlockLoggerLevel.TRACE);
+        }
     }
 
     @Override
     public void trace(Marker arg0, String arg1) {
-
+        trace(arg1);
     }
 
     @Override
     public void trace(String arg0, Object arg1, Object arg2) {
-
+        if (isInfoEnabled()) {
+            String text = String.format(arg0, arg1, arg2);
+            logger.writeLog(text, NonBlockLoggerLevel.TRACE);
+        }
     }
 
     @Override
     public void trace(Marker arg0, String arg1, Object arg2) {
-
+        trace(arg1, arg2);
     }
 
     @Override
     public void trace(Marker arg0, String arg1, Object... arg2) {
-
+        trace(arg1, arg2);
     }
 
     @Override
     public void trace(Marker arg0, String arg1, Throwable arg2) {
-
+        trace(arg1, arg2);
     }
 
     @Override
     public void trace(Marker arg0, String arg1, Object arg2, Object arg3) {
-
+        trace(arg1, arg2, arg3);
     }
 
     @Override
@@ -326,56 +344,59 @@ public class NonBlockLoggerAdapter implements Logger {
 
     @Override
     public void warn(String arg0, Object arg1) {
-        // TODO Auto-generated method stub
-
+        if (isWarnEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.WARN);
+        }
     }
 
     @Override
     public void warn(String arg0, Object... arg1) {
-        // TODO Auto-generated method stub
-
+        if (isWarnEnabled()) {
+            String text = String.format(arg0, arg1);
+            logger.writeLog(text, NonBlockLoggerLevel.WARN);
+        }
     }
 
     @Override
     public void warn(String arg0, Throwable arg1) {
-        // TODO Auto-generated method stub
-
+        if (isWarnEnabled()) {
+            String stackTrace = getFullStackTraceText(arg0, arg1);
+            logger.writeLog(stackTrace, NonBlockLoggerLevel.WARN);
+        }
     }
 
     @Override
     public void warn(Marker arg0, String arg1) {
-        // TODO Auto-generated method stub
-
+        warn(arg1);
     }
 
     @Override
     public void warn(String arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+        if (isWarnEnabled()) {
+            String text = String.format(arg0, arg1, arg2);
+            logger.writeLog(text, NonBlockLoggerLevel.WARN);
+        }
     }
 
     @Override
     public void warn(Marker arg0, String arg1, Object arg2) {
-        // TODO Auto-generated method stub
-
+        warn(arg1, arg2);
     }
 
     @Override
     public void warn(Marker arg0, String arg1, Object... arg2) {
-        // TODO Auto-generated method stub
-
+        warn(arg1, arg2);
     }
 
     @Override
     public void warn(Marker arg0, String arg1, Throwable arg2) {
-        // TODO Auto-generated method stub
-
+        warn(arg1, arg2);
     }
 
     @Override
     public void warn(Marker arg0, String arg1, Object arg2, Object arg3) {
-        // TODO Auto-generated method stub
-
+       warn(arg1, arg2, arg3);
     }
 
 }
